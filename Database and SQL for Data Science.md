@@ -38,13 +38,13 @@ e.g., MySQL, Oracle Database, IBM Db2, etc.
      <column_name_1> <datatype> [optional_parameters],
      ...
      <column_name_n> <datatype>
-    )
+    );
   /* e.g. */
-  CREATE TABLE provinces
+  create table provinces
     (
      id char(2) PRIMARY KEY NOT NULL,
      name varchar(24)
-    )
+    );
   ```
   - ALTER: alter tables: add/drop columns and modify column data types.
   - TRUNCATE: delete data in a table.
@@ -56,13 +56,13 @@ CRUD (Create, Read, Update, and Delete rows) operations.
   ```sql
   INSERT INTO <table_name> 
       (<column_name_1>, ..., <column_name_n>)
-  VALUES (<value_1>, ..., <value_n>)
+  VALUES (<value_1>, ..., <value_n>);
   /* e.g. */
-  INSERT INTO AUTHOR
+  insert into AUTHOR
       (AUTHOR_ID, LASTNAME, FIRSTNAME, CITY, COUNTRY)
-  VALUES 
-      ('A1', 'Chong', 'Raul', 'Toronto', 'CA')
-      ('A2', 'Ahuja', 'Rav',  'Toronto', 'CA')
+  values 
+      ('A1', 'Chong', 'Raul', 'Toronto', 'CA'),
+      ('A2', 'Ahuja', 'Rav',  'Toronto', 'CA');
   
   ```
   - SELECT: retrieve a row or rows of data from a table.
@@ -70,38 +70,38 @@ CRUD (Create, Read, Update, and Delete rows) operations.
   /* Select statement: Query
      Select result:    Result set/table */
      
-  select * from <table_name>
+  SELECT * FROM <table_name>
   select <column_name_1>, ..., <column_name_n> from <table_name>
   select ... from <table_name> WHERE <predicate>
   /* e.g. */
-  select book_id, title from Book where book_id = 'B1'  /* = > < >= <= <> */
+  select book_id, title from Book where book_id = 'B1';  /* = > < >= <= <> */
   
-  select COUNT(...) from <table_name>
+  select COUNT(...) from <table_name>;
   /* e.g. */
-  select count(COUNTRY) from MEDALS where COUNTRY = 'CANADA'
+  select count(COUNTRY) from MEDALS where COUNTRY = 'CANADA';
   
-  select DISTINCT <column_name> from <table_name>
+  select DISTINCT <column_name> from <table_name>;
   /* e.g. */
-  select distinct COUNTRY from MEDALS where MEDALTYPE = 'GOLD'
+  select distinct COUNTRY from MEDALS where MEDALTYPE = 'GOLD';
   
-  select ... from <table_name> LIMIT <number_of_rows>
+  select ... from <table_name> LIMIT <number_of_rows>;
   /* e.g. */
-  select * from MEDALS where YEAR = 2018 limit 5
+  select * from MEDALS where YEAR = 2018 limit 5;
   ```
   - UPDATE: edit a row or rows of data in a table.
   ```sql
   UPDATE <table_name>
   SET <column_name_1> = <value_1> ... <column_name_n> = <value_n>
-  [WHERE <condition>]
+  [WHERE <condition>];
   /* e.g. */
   UPDATE AUTHOR
   SET LASTNAME = 'KATTA' 
       FIRSTNAME = 'LAKSHMI'
-  WHERE AUTHOR_ID = 'A2'
+  where AUTHOR_ID = 'A2';
   ```
   - DELETE: remote a row or rows of data from a table.
   ```sql
-  DELETE FROM <table_name> [WHERE <condition>]
+  DELETE FROM <table_name> [WHERE <condition>];
   /* e.g. */
-  DELETE FROM AUTHOR WHERE AUTHOR_ID IN ('A2', 'A3')
+  delete from AUTHOR WHERE AUTHOR_ID IN ('A2', 'A3');
   ```
