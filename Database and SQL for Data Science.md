@@ -105,3 +105,44 @@ CRUD (Create, Read, Update, and Delete rows) operations.
   /* e.g. */
   delete from AUTHOR WHERE AUTHOR_ID IN ('A2', 'A3');
   ```
+
+## String Patterns, Ranges, Sorting, and Grouping
+- LIKE: use a string pattern.
+```sql
+ where <column_name> LIKE <string_pattern>
+ /* e.g. */
+ select firstname from Author where firstname LIKE R%;  /* wildcard character */
+```
+
+- BETWEEN: using a range.
+```sql
+select title, pages from Book where pages >= 290 AND pages <= 300;
+select title, pages from Book where pages BETWEEN 290 and 300;
+```
+
+- IN: using a set of values.
+```sql
+select firstname, lastname, country from Author where country='AU' OR country='BR';
+select firstname, lastname, country from Author where country IN ('AU','BR');
+```
+
+- ORDER BY: sort the result set.
+```sql
+select title from Book ORDER BY title;  /* ascending order by default */
+select title from Book order by title DESC;  /* descending order */
+select title, pages from Book order by 2;  /* specify column sequence number */
+```
+- DISTINCT: eliminate duplicates.
+```sql
+select DISTINCT(country) from Author;
+```
+
+- GROUP BY: group the result set.
+```sql
+select country, count(country) AS Count from Author GROUP BY country;
+```
+
+- HAVING: further restrict the result set.
+```sql
+select country, count(country) AS Count from Author GROUP BY country HAVING count(country) > 4;
+```
