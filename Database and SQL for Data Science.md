@@ -146,3 +146,77 @@ select country, count(country) AS Count from Author GROUP BY country;
 ```sql
 select country, count(country) AS Count from Author GROUP BY country HAVING count(country) > 4;
 ```
+
+## Built-in Database Functions
+- Aggregate/column functions: collection of values -> single value, e.g., SUM(), MIN(), MAX(), AVG(), etc.
+  - Column alias:
+  ```sql
+  select SUM(COST) as SUM_OF_COST from PETRESCUE;
+  ```
+  - Columnwise mathematical operations:
+  ```sql
+  select AVG(COST / QUANTITY) from PETRESCUE where ANIMAL = 'Dog';
+  ```
+
+- Scalar functions: operations on every input value, e.g., ROUND(), LENGTH(), UCASE(), LCASE(), etc.
+  - String functions:
+  ```sql
+  select * from PETRESCUE where LCASE(ANIMAL) = 'cat';
+  ```
+  
+- Date/time functions: operations on dates, times, and timestamps, e.g., YEAR(), MONTH(), DAY(), DAYOFMONTH(), DAYOFWEEK(), DAYOFYEAR(), WEEK(), HOUR(), MINUTE(), SECOND(), etc.
+  - Data/time arithmetic:
+  ```sql
+  select (RESCUEDATE + 3 DAYS) from PETRESCUE;
+  ```
+  - Special registers: CURRENT_DATE, CURRENT_TIME
+  ```sql
+  select (CURRENT_DATE - RESCUEDATE) from PETRESCUE;
+  ```
+
+## Sub-Queries
+Sub-query: a query inside another query.
+- Nested selects: use sub-select expressions as aggregate functions cannot be evaluated in WHERE clauses.
+```sql
+select COLUMN1 from TABLE where COLUMN2 = (select MAX(COLUMN2) from TABLE);
+```
+
+- Column expressions: sub-queries in the list of columns.
+```sql
+select EMP_ID, SALARY, (select AVG(SALARY) from EMPLOYEES) as AVG_SALARY from EMPLOYEES;
+```
+
+- Table expressions/derived tables: table name subtituted with a sub-query.
+```sql
+select * from (select EMP_ID, F_NAME, L_NAME, DEP_ID from EMPLOYEES) as EMP4ALL;  # table assignment
+```
+
+### Multiple tables
+- Multiple tables with sub-queries:
+```sql
+select * from EMPLOYEES where DEP_ID in (select DEPT_ID_DEP from DEPARTMENTS where LOC_ID = 'L0002');
+```
+- Implicit join: Cartesian join.
+```sql
+select E.EMP_ID, D.DEPT_ID_DEP from EMPLOYEES E, DEPARTMENTS D where E.DEP_ID = D.DEPT_ID_DEP;  # table alias
+```
+
+## Accessing databases using Python
+**DB-API**: Python's standard API for accessing multiple kinds of relational databases.
+- Connection objects
+  - Database connections
+  - Transaction management
+- Cursor objects
+  - Database queries
+  - Result scroll
+  - Result retrieval
+
+```Python
+from dbmodule import connect
+connection = connect('databasename', 'username', 'password')
+cursor = connection.cursor()
+cursor.execute('SQL query')
+results = cursor.fetchall()
+cursor.close()
+connection.close()
+```
